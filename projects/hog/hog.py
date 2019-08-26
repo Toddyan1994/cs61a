@@ -374,6 +374,7 @@ def final_strategy(score, opponent_score):
     2: if roll 0 results in favorable swap, always roll 0
     3: if pig out(1) results in favorable swap, always roll 6
     4: find best default dice number
+    5: need other algorithms for improvement
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
@@ -393,7 +394,6 @@ def final_strategy(score, opponent_score):
         return 6
     elif free_bacon(opponent_score)>=bacongoal:
         return 0
-
     else:
         return num_rolls
 
