@@ -33,6 +33,10 @@ def product(n, term):
     162
     """
     "*** YOUR CODE HERE ***"
+    result=1
+    for i in range(1,n+1):
+        result*=term(i)
+    return result
 
 # The identity function, defined using a lambda expression!
 identity = lambda k: k
@@ -49,6 +53,7 @@ def factorial(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    return product(n,identity)
 
 def make_adder(n):
     """Return a function that takes an argument K and returns N + K.
@@ -60,4 +65,6 @@ def make_adder(n):
     3
     """
     "*** YOUR CODE HERE ***"
-    return 'REPLACE ME'
+    def adder(K):
+        return n+K
+    return adder
