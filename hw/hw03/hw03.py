@@ -25,6 +25,18 @@ def has_seven(k):
     True
     """
     "*** YOUR CODE HERE ***"
+    if k<=10:
+        if k==7:
+            return True
+        else:
+            return False
+    else:
+        if k%10==7:
+            return True
+        return has_seven(k//10)
+
+
+
 
 def summation(n, term):
 
@@ -45,7 +57,11 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
-
+    if n==1:
+        return term(1)
+    else:
+        x=term(n)
+        return x+summation(n-1,term)
 def square(x):
     return x * x
 
