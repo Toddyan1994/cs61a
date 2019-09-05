@@ -31,6 +31,21 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
+    def fc1(m):
+        def fc2(num):
+            cir=1
+            s=num
+            while cir<=m:
+                if cir%3==1:
+                    s=f1(s)
+                elif cir%3==2:
+                    s=f2(s)
+                elif cir%3==0:
+                    s=f3(s)
+                cir+=1
+            return s
+        return fc2
+    return fc1
 
 ## Lambda expressions
 
@@ -49,9 +64,9 @@ def is_palindrome(n):
     True
     """
     x, y = n, 0
-    f = lambda: _____
+    f = lambda: 10*y+x%10
     while x > 0:
-        x, y = _____, f()
+        x, y = x//10, f()
     return y == n
 
 ## More recursion practice
