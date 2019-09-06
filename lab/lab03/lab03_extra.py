@@ -81,6 +81,8 @@ def skip_mul(n):
     """
     if n == 2:
         return 2
+    elif n==1:
+        return 1
     else:
         return n * skip_mul(n - 2)
 
@@ -95,6 +97,15 @@ def is_prime(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    assert n>1
+    def check(i):
+        if i==1:
+            return True
+        elif n%i==0:
+            return False
+        else:
+            return check(i-1)
+    return check(n-1)
 
 def interleaved_sum(n, odd_term, even_term):
     """Compute the sum odd_term(1) + even_term(2) + odd_term(3) + ..., up
@@ -105,6 +116,20 @@ def interleaved_sum(n, odd_term, even_term):
     29
     """
     "*** YOUR CODE HERE ***"
+    def add_odd(i):
+        if reach_end(i):
+            return odd_term(i)
+        return odd_term(i)+add_even(i+1)
+    def add_even(i):
+        if reach_end(i):
+            return even_term(i)
+        return even_term(i)+add_odd(i+1)
+    def reach_end(i):
+        if i==n:
+            return True
+        return False
+    return add_odd(1)
+
 
 def ten_pairs(n):
     """Return the number of ten-pairs within positive integer n.
@@ -117,3 +142,11 @@ def ten_pairs(n):
     6
     """
     "*** YOUR CODE HERE ***"
+    def count(i,n):
+        if n==0:
+            return 0
+        elif n%10==i:
+            return count(i,n//10)+1
+        else:
+            return count(i,n//10)
+    return count(1,n)*count(9,n)+count(2,n)*count(8,n)+count(3,n)*count(7,n)+count(4,n)*count(6,n)+count(5,n)*(count(5,n)-1)//2
