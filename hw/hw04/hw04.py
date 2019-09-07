@@ -67,9 +67,11 @@ def g(n):
     True
     """
     "*** YOUR CODE HERE ***"
-    a,b,c=1,2,3
-    if n=1:
-        
+    if n<=3:
+        return n
+    else:
+        return g(n-1)+2*g(n-2)+3*g(n-3)
+
 
 def g_iter(n):
     """Return the value of G(n), computed iteratively.
@@ -89,6 +91,17 @@ def g_iter(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n<=3:
+        return n
+    else:
+        front,mid,back=1,2,3
+        for i in range(4,n+1):
+            front,mid,back=mid,back,3*front+2*mid+back
+            i+=1
+        return back
+
+
+
 
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
@@ -122,6 +135,27 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+#    flag=0 #increasing status
+#    s=0 #starting with 0
+#    for i in range (1,n+1):
+#        if flag==0: #
+#            s+=1
+#        elif flag==1: #
+#            s-=1
+#        if i%7==0 or has_seven(i):
+#            flag=1-flag #change of status
+#    return s
+    def f1(i,value,c):
+        if i==n:
+            return value
+        elif i%7==0 or has_seven(i):
+            return f1(i+1,value-c,-c)
+        else:
+            return f1(i+1,value+c,c)
+    return f1(1,1,1)
+
+
+
 
 def has_seven(k):
     """Returns True if at least one of the digits of k is a 7, False otherwise.
@@ -159,6 +193,13 @@ def count_change(amount):
     9828
     """
     "*** YOUR CODE HERE ***"
+    def partition(amount,div):
+        
+    n=0
+    while amount>1:
+        amount=amount//2
+        n+=1
+    return partition(amount,n)
 
 ###################
 # Extra Questions #
