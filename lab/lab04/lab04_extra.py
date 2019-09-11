@@ -135,6 +135,15 @@ def put_piece(board, max_rows, column, player):
     -1
     """
     "*** YOUR CODE HERE ***"
+    current_row=max_rows-1
+    while current_row>=0:
+        if get_piece(board,current_row,column)=='-':
+            board=replace_elem(board,current_row,replace_elem(board[current_row],column,player))
+            break
+        else:
+            current_row-=1
+    return current_row,board
+
 
 
 def make_move(board, max_rows, max_cols, col, player):
@@ -163,6 +172,11 @@ def make_move(board, max_rows, max_cols, col, player):
     -1
     """
     "*** YOUR CODE HERE ***"
+    if col>=0 and col<max_cols:
+        return put_piece(board, max_rows, col, player)
+    else:
+        return -1,board
+
 
 def print_board(board, max_rows, max_cols):
     """Prints the board. Row 0 is at the top, and column 0 at the far left.
@@ -178,6 +192,12 @@ def print_board(board, max_rows, max_cols):
     X -
     """
     "*** YOUR CODE HERE ***"
+    for i in range(0,max_rows):
+        temp=""
+        for j in range(0,max_cols):
+            temp+=get_piece(board,i,j)+' '
+        print(temp.strip())
+
 
 def check_win_row(board, max_rows, max_cols, num_connect, row, player):
     """ Returns True if the given player has a horizontal win
