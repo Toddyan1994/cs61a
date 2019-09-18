@@ -222,6 +222,16 @@ def check_win_row(board, max_rows, max_cols, num_connect, row, player):
     False
     """
     "*** YOUR CODE HERE ***"
+    s=0
+    for i in range(0,max_cols):
+        if get_piece(board,row,i)==player:
+            s+=1
+        else:
+            s=0
+        if s>=num_connect:
+            return True
+    return False
+
 
 def check_win_column(board, max_rows, max_cols, num_connect, col, player):
     """ Returns True if the given player has a vertical win in the given column,
@@ -247,6 +257,15 @@ def check_win_column(board, max_rows, max_cols, num_connect, col, player):
     False
     """
     "*** YOUR CODE HERE ***"
+    s=0
+    for i in range(max_rows):
+        if get_piece(board,i,col)==player:
+            s+=1
+        else:
+            s=0
+        if s>=num_connect:
+            return True
+    return False
 
 def check_win(board, max_rows, max_cols, num_connect, row, col, player):
     """Returns True if the given player has any kind of win after placing a
@@ -280,9 +299,16 @@ def check_win(board, max_rows, max_cols, num_connect, row, col, player):
     >>> check_win(board, rows, columns, num_connect, 1, 0, 'X')
     True
     """
+
     diagonal_win = check_win_diagonal(board, max_rows, max_cols, num_connect,
                                       row, col, player)
     "*** YOUR CODE HERE ***"
+    row_win=check_win_row(board,max_rows,max_cols,num_connect,row,player)
+    column_win=check_win_column(board,max_rows,max_cols,num_connect,col,player)
+    if diagonal_win or row_win or column_win:
+        return True
+    else:
+        return False
 
 ###############################################################
 ### Functions for reference when solving the other problems ###
