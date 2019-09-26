@@ -20,6 +20,7 @@ def find_closest(location, centroids):
     """
     # BEGIN Question 3
     "*** YOUR CODE HERE ***"
+    return min(centroids, key=lambda x: (x[0]-location[0])**2+(x[1]-location[1])**2)
     # END Question 3
 
 
@@ -49,6 +50,8 @@ def group_by_centroid(restaurants, centroids):
     """
     # BEGIN Question 4
     "*** YOUR CODE HERE ***"
+    return group_by_first([[find_closest(restaurant_location(restaurant), centroids), restaurant] for restaurant in restaurants])
+
     # END Question 4
 
 
@@ -56,6 +59,9 @@ def find_centroid(cluster):
     """Return the centroid of the locations of the restaurants in cluster."""
     # BEGIN Question 5
     "*** YOUR CODE HERE ***"
+    latitude = [restaurant_location(restaurant)[0] for restaurant in cluster]
+    longitude = [restaurant_location(restaurant)[1] for restaurant in cluster]
+    return [mean(latitude), mean(longitude)]
     # END Question 5
 
 
@@ -70,6 +76,8 @@ def k_means(restaurants, k, max_updates=100):
         old_centroids = centroids
         # BEGIN Question 6
         "*** YOUR CODE HERE ***"
+        clusters=group_by_centroid(restaurants,centroids)
+        centroids=[find_centroid(cluster) for cluster in clusters]
         # END Question 6
         n += 1
     return centroids
@@ -97,7 +105,13 @@ def find_predictor(user, restaurants, feature_fn):
     ys = [reviews_by_user[restaurant_name(r)] for r in restaurants]
 
     # BEGIN Question 7
-    b, a, r_squared = 0, 0, 0  # REPLACE THIS LINE WITH YOUR SOLUTION
+    sxx=sum([(x-mean(xs))**2 for x in xs])
+    syy=sum([(y-mean(ys))**2 for y in ys])
+    sxy=sum([(x-mean(xs))*(y-mean(ys)) for x,y in zip(xs,ys)])
+    b=sxy/sxx
+    a=mean(ys)-b*mean(xs)
+    r_squared=sxy**2/(sxx*syy)
+
     # END Question 7
 
     def predictor(restaurant):
@@ -118,6 +132,7 @@ def best_predictor(user, restaurants, feature_fns):
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 8
     "*** YOUR CODE HERE ***"
+    
     # END Question 8
 
 
