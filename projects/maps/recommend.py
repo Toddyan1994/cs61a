@@ -108,8 +108,8 @@ def find_predictor(user, restaurants, feature_fn):
     sxx=sum([(x-mean(xs))**2 for x in xs])
     syy=sum([(y-mean(ys))**2 for y in ys])
     sxy=sum([(x-mean(xs))*(y-mean(ys)) for x,y in zip(xs,ys)])
-    b=sxy/sxx
-    a=mean(ys)-b*mean(xs)
+    b= sxy/sxx
+    a= mean(ys)-b*mean(xs)
     r_squared=sxy**2/(sxx*syy)
 
     # END Question 7
@@ -132,7 +132,7 @@ def best_predictor(user, restaurants, feature_fns):
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 8
     "*** YOUR CODE HERE ***"
-    
+    return max([find_predictor(user, reviewed, fn) for fn in feature_fns], key=lambda x:x[1])[0]
     # END Question 8
 
 
@@ -149,6 +149,13 @@ def rate_all(user, restaurants, feature_fns):
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 9
     "*** YOUR CODE HERE ***"
+    rate={}
+    for r in restaurants:
+        if r in reviewed:
+            rate[restaurant_name(r)]=user_rating(user,restaurant_name(r))
+        else:
+            rate[restaurant_name(r)]=predictor(r)
+    return rate
     # END Question 9
 
 
@@ -161,6 +168,7 @@ def search(query, restaurants):
     """
     # BEGIN Question 10
     "*** YOUR CODE HERE ***"
+    return [r for r in restaurants if query in restaurant_categories(r)]
     # END Question 10
 
 
