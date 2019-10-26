@@ -95,10 +95,10 @@ def replace_leaf(t, old, new):
     "*** YOUR CODE HERE ***"
     if is_leaf(t) and label(t)==old:
         return tree(new)
-    newbranches=[]
+    bs=[]
     for branch in branches(t):
-        newbranches.append(replace_leaf(branch, old, new))
-    return tree(label(t),newbranches)
+        bs.append(replace_leaf(branch, old, new))
+    return tree(label(t),bs)
 
 
 # Tree ADT

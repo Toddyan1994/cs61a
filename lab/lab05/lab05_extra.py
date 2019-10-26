@@ -94,11 +94,12 @@ def prune_leaves(t, vals):
     if is_leaf(t):
         if label(t) in vals:
             return None
-    newbranches=[]
+    bs=[]
     for branch in branches(t):
-            newbranchs.append(prune_leaves(branch,vals))
-    newbranches_new=[x for x in newbranches if x is not None]
-    return tree(label(t),newbranches_new)
+        bx=prune_leaves(branch,vals)
+        if bx != None:
+            bs.append(bx)
+    return tree(label(t),bs)
 
 # Q9
 def sprout_leaves(t, vals):
@@ -136,13 +137,12 @@ def sprout_leaves(t, vals):
     """
     "*** YOUR CODE HERE ***"
     if is_leaf(t):
-        return tree(label(t),vals)
-
+        return tree(label(t),[tree(val) for val in vals])
     else:
-        newbranches=[]
+        nb=[]
         for x in branches(t):
-            newbranches.append(sprout_leaves(x,vals))
-    return tree(label(t),newbranches)
+            nb.append(sprout_leaves(x,vals))
+    return tree(label(t),nb)
 
 # Q10
 def add_trees(t1, t2):
@@ -181,3 +181,13 @@ def add_trees(t1, t2):
       5
     """
     "*** YOUR CODE HERE ***"
+    l1, l2=len(branches(t1)), len(branches(t2))
+    if l1==l2:
+        bs=[add_trees(b1,b2) for b1,b2 in zip(branches(t1),branches(t2))]
+    elif l1<l2:
+        nbs=branches(t1)+[tree(0) for _ in range(l2-l1)]
+        t1s=tree(label(t1), nbs)
+        return add_trees(t1s,t2)
+    else:
+        return add_trees(t2,t1)
+    return tree(label(t1)+label(t2),bs)
