@@ -1,3 +1,4 @@
 'Me-correct', (0, 70)
 'Player.go_to-correct', (512, 70)
 'Player.talk_to-correct', (1024, 70)
+'Player.unlock-correct', (1536, 70)

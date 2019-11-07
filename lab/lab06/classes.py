@@ -1,6 +1,7 @@
 # A "simple" adventure game.
 
 class Player(object):
+    backpack=[]
     def __init__(self, name, place):
         """Create a player object."""
         self.name = name
@@ -88,7 +89,7 @@ class Player(object):
             print(thing +' is not here.')
         else:
             print('Player takes the '+ thing)
-            self.backpack+=self.place.things[thing]
+            self.backpack+=[self.place.things[thing]]
 
     def check_backpack(self):
         """Print each item with its description and return a list of item names.
