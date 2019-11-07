@@ -20,3 +20,12 @@ def vending_machine(snacks):
     'chocolate'
     """
     "*** YOUR CODE HERE ***"
+    i=0
+    lis=list(snacks)
+    n=len(lis)
+    def circle():
+        nonlocal i
+        memory=i
+        i+=1
+        return lis[memory//n]
+    return circle

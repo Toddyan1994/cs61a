@@ -55,7 +55,10 @@ class Player(object):
         """
         if type(person) != str:
             print('Person has to be a string.')
-        "*** YOUR CODE HERE ***"
+        elif person not in self.place.characters:
+            print(person+' is not here.')
+        else:
+            print(person+' says: '+self.place.characters[person].talk())
 
 
     def take(self, thing):
@@ -81,7 +84,11 @@ class Player(object):
         """
         if type(thing) != str:
             print('Thing should be a string.')
-        "*** YOUR CODE HERE ***"
+        elif thing not in self.place.things:
+            print(thing +' is not here.')
+        else:
+            print('Player takes the '+ thing)
+            self.backpack+=self.place.things[thing]
 
     def check_backpack(self):
         """Print each item with its description and return a list of item names.
@@ -153,8 +160,14 @@ class Player(object):
         for item in self.backpack:
             if type(item) == Key:
                 key = item
-        "*** YOUR CODE HERE ***"
-
+        place = self.place.get_neighbor(place)
+        if not key and place.locked:
+            print(place.name + ' can\'t be unlocked without a key!')
+        elif not place.locked:
+            print(place.name + ' is already unlocked!')
+        else:
+            key.use(place)
+            print(place.name + ' is now unlocked!')
 
 class Character(object):
     def __init__(self, name, message):
@@ -174,6 +187,9 @@ class Thing(object):
         print("You can't use a {0} here".format(self.name))
 
 """ Implement Key here! """
+class Key(Thing):
+    def use(self,place):
+        place.locked=False
 
 class Treasure(Thing):
     def __init__(self, name, description, value, weight):
